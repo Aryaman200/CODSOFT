@@ -1,55 +1,56 @@
-# This function adds two numbers
-def add(x, y):
-    return x + y
+# Function to sum two numbers
+def add_numbers(a, b):
+    return a + b
 
-# This function subtracts two numbers
-def subtract(x, y):
-    return x - y
+# Function to subtract two numbers
+def subtract_numbers(a, b):
+    return a - b
 
-# This function multiplies two numbers
-def multiply(x, y):
-    return x * y
+# Function to multiply two numbers
+def multiply_numbers(a, b):
+    return a * b
 
-# This function divides two numbers
-def divide(x, y):
-    return x / y
+# Function to divide two numbers
+def divide_numbers(a, b):
+    return a / b
 
-
-print("Select operation.")
-print("1.Add")
-print("2.Subtract")
-print("3.Multiply")
-print("4.Divide")
+print("Choose an operation:")
+print("1. Addition")
+print("2. Subtraction")
+print("3. Multiplication")
+print("4. Division")
 
 while True:
-    # take input from the user
-    choice = input("Enter choice(1/2/3/4): ")
+    # Getting user's operation choice
+    operation = input("Enter option (1/2/3/4): ")
 
-    # check if choice is one of the four options
-    if choice in ('1', '2', '3', '4'):
+    # Ensuring valid operation choice
+    if operation in ('1', '2', '3', '4'):
         try:
-            num1 = float(input("Enter first number: "))
-            num2 = float(input("Enter second number: "))
+            number1 = float(input("Enter the first number: "))
+            number2 = float(input("Enter the second number: "))
         except ValueError:
-            print("Invalid input. Please enter a number.")
+            print("Invalid input. Please enter a valid number.")
             continue
 
-        if choice == '1':
-            print(num1, "+", num2, "=", add(num1, num2))
+        if operation == '1':
+            print(f"{number1} + {number2} = {add_numbers(number1, number2)}")
 
-        elif choice == '2':
-            print(num1, "-", num2, "=", subtract(num1, num2))
+        elif operation == '2':
+            print(f"{number1} - {number2} = {subtract_numbers(number1, number2)}")
 
-        elif choice == '3':
-            print(num1, "*", num2, "=", multiply(num1, num2))
+        elif operation == '3':
+            print(f"{number1} * {number2} = {multiply_numbers(number1, number2)}")
 
-        elif choice == '4':
-            print(num1, "/", num2, "=", divide(num1, num2))
-        
-        # check if user wants another calculation
-        # break the while loop if answer is no
-        next_calculation = input("Let's do next calculation? (yes/no): ")
-        if next_calculation == "no":
+        elif operation == '4':
+            if number2 == 0:
+                print("Error: Division by zero is undefined.")
+            else:
+                print(f"{number1} / {number2} = {divide_numbers(number1, number2)}")
+
+        # Asking user if they want to perform another calculation
+        another_calculation = input("Would you like to perform another calculation? (yes/no): ")
+        if another_calculation.lower() == "no":
             break
     else:
-        print("Invalid Input")
+        print("Invalid option selected. Please choose a valid operation.")
