@@ -1,74 +1,79 @@
 import random
 import time
-# Print multiline instruction
-print('Winning rules of the game ROCK PAPER SCISSORS are:\n'
-        + "Rock vs Paper -> Paper wins \n"
-        + "Rock vs Scissors -> Rock wins \n"
-        + "Paper vs Scissors -> Scissors wins \n")
+
+# Instructions for the game
+print('Welcome to the ROCK, PAPER, SCISSORS game!\n')
+print('Rules of the game:')
+print('1. Rock vs Paper -> Paper wins')
+print('2. Rock vs Scissors -> Rock wins')
+print('3. Paper vs Scissors -> Scissors wins\n')
+
+# Mapping choices to names
+choices = {1: 'Rock', 2: 'Paper', 3: 'Scissors'}
+
+# Initialize score tracking
+user_score = 0
+computer_score = 0
+draw_count = 0
+
+def get_winner(player, computer):
+    """Determine the winner between player and computer."""
+    if player == computer:
+        return "DRAW"
+    elif (player == 1 and computer == 3) or (player == 2 and computer == 1) or (player == 3 and computer == 2):
+        return "USER"
+    else:
+        return "COMPUTER"
 
 while True:
+    # Prompting user for choice input
+    print("Choose your option: \n 1 - Rock \n 2 - Paper \n 3 - Scissors")
+    
+    # Validating input
+    try:
+        user_choice = int(input("Enter your choice (1/2/3): "))
+        if user_choice not in [1, 2, 3]:
+            raise ValueError("Invalid choice")
+    except ValueError:
+        print("Please enter a valid option (1/2/3).\n")
+        continue
 
-    print("Enter your choice \n 1 - Rock \n 2 - Paper \n 3 - Scissors \n")
+    # User's choice
+    user_choice_name = choices[user_choice]
+    print(f"\nYou chose: {user_choice_name}")
 
-    # Take the input from user
-    choice = int(input("Enter your choice: "))
+    # Computer's turn
+    print("Computer is choosing...")
+    time.sleep(1)
+    computer_choice = random.randint(1, 3)
+    computer_choice_name = choices[computer_choice]
+    print(f"Computer chose: {computer_choice_name}")
 
-    # Looping until user enters valid input
-    while choice > 3 or choice < 1:
-        choice = int(input('Enter a valid choice please : '))
+    # Determine and announce the winner
+    print(f"\n{user_choice_name} vs {computer_choice_name}")
+    winner = get_winner(user_choice, computer_choice)
 
-    # Initialize value of choice_name variable corresponding to the choice value
-    if choice == 1:
-        choice_name = 'Rock'
-    elif choice == 2:
-        choice_name = 'Paper'
-    else:
-        choice_name = 'Scissors'
-
-    # Print user choice
-    print('User choice is:', choice_name)
-    print("Now it's Computer's Turn...")
-    time.sleep(3)
-    # Computer chooses randomly any number among 1, 2, and 3
-    comp_choice = random.randint(1, 3)
-
-    # Initialize value of comp_choice_name variable corresponding to the choice value
-    if comp_choice == 1:
-        comp_choice_name = 'Rock'
-    elif comp_choice == 2:
-        comp_choice_name = 'Paper'
-    else:
-        comp_choice_name = 'Scissors'
-
-    print("Computer choice is:", comp_choice_name)
-    print(choice_name, 'vs', comp_choice_name)
-
-    # Determine the winner
-    if choice == comp_choice:
-        result = "DRAW"
-    elif (choice == 1 and comp_choice == 2) or (comp_choice == 1 and choice == 2):
-        result = 'Paper'
-    elif (choice == 1 and comp_choice == 3) or (comp_choice == 1 and choice == 3):
-        result = 'Rock'
-    elif (choice == 2 and comp_choice == 3) or (comp_choice == 2 and choice == 3):
-        result = 'Scissors'
-    time.sleep(2)
-    # Print the result
-    if result == "DRAW":
+    time.sleep(1)
+    if winner == "DRAW":
         print("<== It's a tie! ==>")
-    elif result == choice_name:
-        print("<== User wins! ==>")
+        draw_count += 1
+    elif winner == "USER":
+        print("<== You win! ==>")
+        user_score += 1
     else:
         print("<== Computer wins! ==>")
+        computer_score += 1
 
     # Ask if the user wants to play again
-    print("Do you want to play again? (Y/N)")
-    time.sleep(2)
-    ans = input().lower()
-    if ans == 'n':
-        time.sleep(0.5)
+    play_again = input("\nWould you like to play again? (Y/N): ").lower()
+    if play_again == 'n':
+        print("\nGame over!")
+        time.sleep(1)
+        print(f"Final Scores:\nYou: {user_score}\nComputer: {computer_score}\nTies: {draw_count}")
+        time.sleep(1)
+        print("Thanks for playing!")
+        time.sleep(1)
         break
 
-# After coming out of the while loop, print thanks for playing
-print("Thanks for playing!")
-time.sleep(2)
+    print("\nStarting a new round...\n")
+    time.sleep(1)
